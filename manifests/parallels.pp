@@ -1,6 +1,4 @@
 class virtual::parallels {
-    notify { 'Parallels':
-        message => 'No action taken.'
-    }
+  notify { 'Parallels': message => 'No action taken.' }
 
 }
