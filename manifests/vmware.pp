@@ -10,24 +10,24 @@ class virtual::vmware {
     /5/     => '5.0latest',
     default => '5.0latest',
   }
-    
+
   $os_path = $::lsbmajdistrelease ? {
     /5/     => 'rhel5',
     /6/     => 'rhel6',
     default => 'rhel6',
   }
-    
+
   file { '/etc/yum.repos.d/vmware-tools.repo':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => 644,
+    mode    => '0644',
     content => template('virtual/vmware-tools.erb'),
   }
-    
+
   package { $required:
     ensure  => latest,
-    require => File['/etc/yum.repos.d/vmware-tools.repo'],    
+    require => File['/etc/yum.repos.d/vmware-tools.repo'],
   }
 
 }
