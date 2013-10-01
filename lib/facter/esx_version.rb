@@ -8,6 +8,8 @@ Facter.add("esx_version") do
       "4"
     when /0xE72C0/
       "5"
+    when /0xEA0C0/
+      "5"
     else
       "5"
     end
