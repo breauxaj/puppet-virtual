@@ -17,17 +17,26 @@ class virtual::vmware {
     default => 'rhel6',
   }
 
-  file { '/etc/yum.repos.d/vmware-tools.repo':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('virtual/vmware-tools.erb'),
+  file { '/etc/pki/rpm-gpg/VMWARE-PACKAGING-GPG-RSA-KEY.pub':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => "puppet:///modules/virtual/VMWARE-PACKAGING-GPG-RSA-KEY.pub",
+  }
+
+  yumrepo { 'vmware-tools':
+    baseurl        => "http://packages.vmware.com/tools/esx/${vmware_path}/${os_path}/${::architecture}",
+    failovermethod => 'priority',
+    enabled        => '1',
+    gpgcheck       => '1',
+    gpgkey         => "file:///etc/pki/rpm-gpg/VMWARE-PACKAGING-GPG-RSA-KEY.pub",
+    descr          => "VMware Tools"
   }
 
   package { $required:
     ensure  => latest,
-    require => File['/etc/yum.repos.d/vmware-tools.repo'],
+    require => Yumrepo['vmware-tools'],
   }
 
 }
