@@ -22,7 +22,7 @@ class virtual::vmware {
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => "puppet:///modules/virtual/VMWARE-PACKAGING-GPG-RSA-KEY.pub",
+    source => 'puppet:///modules/virtual/VMWARE-PACKAGING-GPG-RSA-KEY.pub',
   }
 
   yumrepo { 'vmware-tools':
@@ -30,8 +30,8 @@ class virtual::vmware {
     failovermethod => 'priority',
     enabled        => '1',
     gpgcheck       => '1',
-    gpgkey         => "file:///etc/pki/rpm-gpg/VMWARE-PACKAGING-GPG-RSA-KEY.pub",
-    descr          => "VMware Tools"
+    gpgkey         => 'file:///etc/pki/rpm-gpg/VMWARE-PACKAGING-GPG-RSA-KEY.pub',
+    descr          => 'VMware Tools'
   }
 
   package { $required:
