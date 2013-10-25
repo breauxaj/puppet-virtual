@@ -23,6 +23,7 @@ class virtual::vmware {
     group  => 'root',
     mode   => '0644',
     source => 'puppet:///modules/virtual/VMWARE-PACKAGING-GPG-RSA-KEY.pub',
+    alias  => 'vmware-tools-key',
   }
 
   yumrepo { 'vmware-tools':
@@ -36,7 +37,7 @@ class virtual::vmware {
 
   package { $required:
     ensure  => latest,
-    require => Yumrepo['vmware-tools'],
+    require => [ Yumrepo['vmware-tools'], File['vmware-tools-key'] ],
   }
 
 }
