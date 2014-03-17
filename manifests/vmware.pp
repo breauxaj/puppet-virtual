@@ -1,4 +1,6 @@
-class virtual::vmware {
+class virtual::vmware (
+  $ensure = 'latest'
+){
   $required = $::esx_version ? {
     /4/     => 'vmware-tools-nox',
     /5/     => 'vmware-tools-esx-nox',
@@ -36,7 +38,7 @@ class virtual::vmware {
   }
 
   package { $required:
-    ensure  => latest,
+    ensure  => $ensure,
     require => [ Yumrepo['vmware-tools'], File['vmware-tools-key'] ],
   }
 
