@@ -8,9 +8,7 @@ class virtual::vmware (
   }
 
   $vmware_path = $::esx_version ? {
-    /4/     => '4.1latest',
-    /5/     => '5.0latest',
-    default => '5.0latest',
+    default => 'latest',
   }
 
   $os_path = $::lsbmajdistrelease ? {
